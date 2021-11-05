@@ -1,0 +1,220 @@
+"""
+Programme réalisé par , Noah Cabaret, 1G1
+"""
+import pygame
+
+#initialisation graphique
+pygame.init()
+fenetre = pygame.display.set_mode((640, 360))
+pygame.display.set_caption("jeu d'aventure")
+font = pygame.font.Font('freesansbold.ttf', 20)
+
+image0=pygame.image.load("acceuil.png")
+image1=pygame.image.load("entrée.jpg")
+image2=pygame.image.load("bureau.png")
+image3=pygame.image.load("salle_bizarre.jpg")
+image4=pygame.image.load("chambre1.png")
+image5=pygame.image.load("chambre2.jpg")
+image6=pygame.image.load("chambre3.jpg")
+image7=pygame.image.load("grenier2.jpg")
+image8=pygame.image.load("cuisine.jpg")
+image9=pygame.image.load("jardin2.jpg")
+image10=pygame.image.load("salle_de_bain.jpg")
+image11=pygame.image.load("couloir.jpg")
+image12=pygame.image.load("plan0.jpg")
+image13=pygame.image.load("plan1.jpg")
+image14=pygame.image.load("regles.jpg")
+image15=pygame.image.load("sortie.jpg")
+image16=pygame.image.load("go.jpg")
+image17=pygame.image.load("niveau.jpg")
+
+
+
+text1 = font.render("Vous vous trouvez dans l'entrée", True, (0, 0, 0))
+text2 = font.render("Pour monter à l'étage appuyez sur M", True, (0, 0, 0))
+text3 = font.render("Vous vous trouvez dans la cuisine/salle a manger", True, (0, 0, 0))
+text130 = font.render("Vous vous trouvez dans la chambre 1", True, (0, 0, 0))
+text4 = font.render("Vous vous trouvez dans le bureau", True, (255, 255, 255))
+text5 = font.render("Vous vous trouvez dans une salle étrange", True, (255, 255, 255))
+text6 = font.render("Vous vous trouvez dans le jardin, un zombie vous a tué!", True, (0, 0, 0))
+text7 = font.render("Vous vous trouvez dans le couloir", True, (255, 255, 255))
+text8 = font.render("Pour retourner au RDC appuyez sur D", True, (255, 255, 255))
+text9 = font.render("Vous vous trouvez dans la chambre 2", True, (255, 255, 255))
+text10 = font.render("Vous vous trouvez dans la chambre 3", True, (255, 255, 255))
+text11 = font.render("Vous vous trouvez dans la salle de bain, un fantôme vous a tué!", True, (255, 0, 0))
+text12 = font.render("Vous vous trouvez dans le grenier, vous avez trouvez la clef!", True, (255, 255, 255))
+text13 = font.render("Appuyez sur C pour continuer", True, (255, 0, 0))
+text14 = font.render("Appuyez sur R pour rejouer", True, (255, 0, 0))
+text15 = font.render("Vous vous trouvez à la sortie du manoir ", True, (255, 255, 255))
+
+
+
+
+
+
+Personnage=0
+
+
+def decrireLaPiece(piece):
+    if piece==0:
+        fenetre.blit(image0,(0,0))
+    elif piece==1:
+        fenetre.blit(image1,(0,0))
+        fenetre.blit(text1,(250,310))
+        fenetre.blit(text2,(250,330))
+    elif piece==2:
+        fenetre.blit(image8,(0,0))
+        fenetre.blit(text3,(0,320))
+    elif piece==3:
+        fenetre.blit(image4,(0,0))
+        fenetre.blit(text130,(250,320))
+    elif piece==4:
+        fenetre.blit(image2,(0,0))
+        fenetre.blit(text4,(10,10))
+    elif piece==5:
+        fenetre.blit(image3,(0,0))
+        fenetre.blit(text5,(10,10))
+    elif piece==6:
+        fenetre.blit(image9,(0,0))
+        fenetre.blit(text6,(10,10))
+        fenetre.blit(text13,(10,30))
+    elif piece==7:
+        fenetre.blit(image11,(0,0))
+        fenetre.blit(text7,(250,310))
+        fenetre.blit(text8,(250,330))
+    elif piece==8:
+        fenetre.blit(image5,(0,0))
+        fenetre.blit(text9,(10,10))
+    elif piece==9:
+        fenetre.blit(image6,(0,0))
+        fenetre.blit(text10,(10,10))
+    elif piece==10:
+        fenetre.blit(image10,(0,0))
+        fenetre.blit(text11,(10,10))
+        fenetre.blit(text13,(10,30))
+    elif piece==11:
+        fenetre.blit(image7,(0,0))
+        fenetre.blit(text12,(10,10))
+        fenetre.blit(text13,(10,30))
+    elif piece==12:
+        fenetre.blit(image12,(0,0))
+    elif piece==13:
+        fenetre.blit(image13,(0,0))
+    elif piece==14:
+        fenetre.blit(image14,(0,0))
+    elif piece==15:
+        fenetre.blit(image15,(0,0))
+        fenetre.blit(text15,(10,330))
+    elif piece==16:
+        fenetre.blit(image16,(0,0))
+        fenetre.blit(text14,(10,10))
+    elif piece==17:
+        fenetre.blit(image17,(0,0))
+
+
+def decision(direction,piece):
+    print("Vous désirez allez au",direction)
+    memorisePiece=piece
+
+    if direction=='c':
+        if piece==0:
+            piece=14
+        elif piece==14:
+            piece=1
+        elif piece==10:
+            piece=16
+        elif piece==11:
+            piece=17
+        elif piece==6:
+            piece=16
+
+    elif direction=='n':
+        if piece==1:
+            piece=2
+        elif piece==3:
+            piece=4
+        elif piece==2:
+            piece=5
+        elif piece==8:
+            piece=10
+        elif piece==7:
+            piece=11
+            print("Vous avez trouvez la clef")
+        elif piece==15:
+            piece=1
+
+    elif direction=='s':
+        if piece==2:
+            piece=1
+        elif piece==4:
+            piece=3
+        elif piece==5:
+            piece=2
+        elif piece==1:
+            piece=15
+
+
+    elif direction=='e':
+        if piece==3:
+            piece=2
+        elif piece==2:
+            piece=6
+        elif piece==8:
+            piece=7
+        elif piece==7:
+            piece=9
+
+    elif direction=='o':
+        if piece==2:
+            piece=3
+        elif piece==7:
+            piece=8
+        elif piece==9:
+            piece=7
+
+    elif direction=='m':
+        if piece==1:
+            piece=7
+
+    elif direction=='d':
+        if piece==7:
+            piece=1
+
+    elif direction=='p':
+        if piece==1:
+            piece=12
+        elif piece==12:
+            piece=1
+        elif piece==7:
+            piece=13
+        elif piece==13:
+            piece=7
+
+    elif direction=='r':
+        if piece==16:
+            piece=1
+
+
+
+
+    if memorisePiece==piece:
+        print("Déplacement impossible")
+    else:
+        print("C'est possible")
+    return piece
+
+
+loop=True
+while loop==True:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            loop = False            #fermeture de la fenetre (croix rouge)
+        elif event.type == pygame.KEYDOWN:  #lecture du clavier
+            Personnage=decision(event.unicode,Personnage)
+            if event.key == pygame.K_ESCAPE or event.unicode == 'q': #touche q pour quitter
+                loop = False
+    decrireLaPiece(Personnage)
+    # Actualisation de l'affichage
+    pygame.display.flip()
+pygame.quit()
+
